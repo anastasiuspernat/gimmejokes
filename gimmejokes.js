@@ -63,6 +63,7 @@ gimme.on('start', function() {
 
 // Channel messages parser
 gimme.on('message', function(message,test) {
+    console.log("#### MESSAGE",message.user,message);
     var nametag = "<@"+gimme.user.id+">";
     // Filter only those messages directly addressed to our bot
     // Also filter out messages produced by our bot
