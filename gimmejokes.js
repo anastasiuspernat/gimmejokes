@@ -33,75 +33,34 @@ const dotenv = require('dotenv');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-// bot settings
-var settings = {
-    mode: "command", //talk
-    token: process.env.SLACK_CLIENT_ID,//"YOUR-TOKEN-GOES-HERE",
-    // Slack API bot token - you can replace it with your token,
-    // set it to something like process.env.SLACK_TOKEN to make it confugarable
-    channel: process.env.SLACK_CLIENT_SECRET,//"YOUR CHANNEL NAME",
-    // Slack channel name - bot will listen and post on this channel only,
-    // set it to something like process.env.SLACK_CHANNEL_NAME to make it confugarable
-    name: process.env.SLACK_BOT_NAME,
-    // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
-    app: {
-        commandToken: process.env.SLACK_COMMAND_ID,
+// Configurable variables
+var localBotSettings = {
+   //Your token goes here
+    token: null,
+    //Your channel name goes here
+    channel: null,
+    //Your bot name goes here
+    name: "gimme"
+};
 
-        // This one doesn't affect Heroku
+// Global bot settings
+// Those are taken from Heroku, environment or user
+var settings = {
+    // Slack API bot token - you can replace it with your token
+    token: process.env.SLACK_CLIENT_ID || localBotSettings.token,//Your bot token gies here
+    // Slack channel name - bot will listen and post on this channel only,
+    channel: process.env.SLACK_CLIENT_SECRET || localBotSettings.channel,//Your channel name goes here
+    // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
+    name: localBotSettings.name,
+    // Global scope app information. Will be used if run on Heroku or just as a standalone app
+    app: {
+        // This one is get from Slack
+        commandToken: process.env.SLACK_COMMAND_ID,
+        // This one doesn't affect Heroku and can be skipped
         commandPort: process.env.SLACK_COMMAND_PORT
     }
 };
 
-var cheesyCommens =
-[
-    "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
-];
-
-var app = express();
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/', function (req, res)
-            {
-                res.send('Gimme Jokes') });
-
-app.get('/commands/gimme', function(req, res) {
-    var payload = req.body;
-
-    console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
-
-    // Then filter all "hot" posts from /r/jokes
-    reddit.r('jokes').hot().exe(function(err, data, resInner){
-        // Get all recent hot posts
-        var posts = data.data.children;
-        // Pick a random one
-        var post = posts[Math.round(Math.random()*(posts.length-1))].data;
-        // Build a message
-        var jokeText = "*"+post.title+"* "+post.selftext+" "+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))];
-
-        res.status(200).json({"response_type":"in_channel","text":jokeText});
-    });
-
-    // doesn't work, no tokens
-/*    if (!payload || payload.token !== settings.app.commandToken) {
-        var err = 'Invalid token';
-        console.log(err)
-        res.status(401).end(err);
-    } else
-    {
-        res.set('content-type', 'application/json')
-        res.status(200).json("Imma be!");
-    }*/
-
-});
-
-var port = process.env.PORT || settings.app.commandPort;
-
-app.listen(port, function(err) {
-
-    console.log(err);
-    console.log("Gimme Jokes is listening at "+port+"!");
-
-});
 
 var gimme;
 
@@ -153,6 +112,60 @@ if (settings.token)
     });
 
 }
+
+
+
+// --------------------------------------- Work in progress ---------------------------------------
+var cheesyCommens =
+[
+    "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
+];
+
+var app = express();
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.get('/', function (req, res)
+            {
+                res.send('Gimme Jokes') });
+
+app.get('/commands/gimme', function(req, res) {
+    var payload = req.body;
+
+    //console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
+
+    // Then filter all "hot" posts from /r/jokes
+    reddit.r('jokes').hot().exe(function(err, data, resInner){
+        // Get all recent hot posts
+        var posts = data.data.children;
+        // Pick a random one
+        var post = posts[Math.round(Math.random()*(posts.length-1))].data;
+        // Build a message
+        var jokeText = "*"+post.title+"* "+post.selftext+" "+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))];
+
+        res.status(200).json({"response_type":"in_channel","text":jokeText});
+    });
+
+    // doesn't work, no tokens
+/*    if (!payload || payload.token !== settings.app.commandToken) {
+        var err = 'Invalid token';
+        console.log(err)
+        res.status(401).end(err);
+    } else
+    {
+        res.set('content-type', 'application/json')
+        res.status(200).json("Imma be!");
+    }*/
+
+});
+
+var port = process.env.PORT || settings.app.commandPort;
+
+app.listen(port, function(err) {
+
+    console.log(err);
+    console.log("Gimme Jokes is listening at "+port+"!");
+
+});
 
 
 
