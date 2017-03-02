@@ -1,0 +1,20 @@
+{
+  "name": "gimme",
+  "description": "Gimme Jokes, a slack joking bot (actually a reddit shameless plagiary)",
+  "repository": "https://github.com/anastasiuspernat/gimmejokes",
+  "env": {
+    "STARBOT_BOT_NAME": {
+      "description": "The bot name",
+      "required": true
+    },
+    "SLACK_TOKEN": {
+      "description": "Slack bot API token",
+      "required": true
+    },
+    "SLACK_CHANNEL_NAME": {
+      "description": "The channel to listen to",
+      "required": true
+    }
+  },
+  "image": "heroku/nodejs"
+}
