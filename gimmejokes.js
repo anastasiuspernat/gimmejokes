@@ -39,7 +39,7 @@ var settings = {
     channel: process.env.SLACK_CHANNEL_NAME,//"YOUR CHANNEL NAME",
     // Slack channel name - bot will listen and post on this channel only,
     // set it to something like process.env.SLACK_CHANNEL_NAME to make it confugarable
-    name: "gimme3"
+    name: process.env.SLACK_BOT_NAME
     // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
 };
 
