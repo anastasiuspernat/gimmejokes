@@ -1,6 +1,8 @@
 # gimmejokes
 A slack joking bot (actually a reddit shameless plagiary)
 
+![](https://github.com/anastasiuspernat/gimmejokes/blob/master/gimmejokes_example.jpg?raw=true)
+
 Posts a random joke from reddit's /r/jokes (sorted by "hot")
 Installation:
 * Use npm to install slackbots and redwrap
