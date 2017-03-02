@@ -23,5 +23,6 @@ Usage
 * Run it! (**node gimmejokes.js**)
 * Type in **@gimme jokes** in your slack channel
 
-&copy; 2017 Anastasiy, anastasiy.com
-Distributed under MIT license
+&copy; 2017 Anastasiy, http://anastasiy.com
+
+Distributed under MIT license.
