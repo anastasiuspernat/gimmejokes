@@ -1,4 +1,6 @@
 # Gimme Jokes
+# ! Temporary unavailable ! This bot is under re-construction
+
 A Slack joking bot (actually a reddit shameless plagiary)
 
 ![](https://github.com/anastasiuspernat/gimmejokes/blob/master/gimmejokes_example.jpg?raw=true)
