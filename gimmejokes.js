@@ -69,7 +69,6 @@ var settings = {
 
 
 var gimme;
-var about = fs.readFileSync("./LICENSE");
 
 // Instantiate a slackbot if we have a bot token
 if (settings.token)
@@ -128,7 +127,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
 {
-    res.send(settings.copyright+"<br>"+about.replace("\n","<br>"));
+    res.send(settings.copyright+"<br>"+about);
 
 });
 
@@ -191,7 +190,6 @@ var port = process.env.PORT || settings.app.commandPort;
 
 app.listen(port, function(err) {
 
-    console.log(err);
     console.log("Gimme Jokes is listening at "+port+"!");
 
 });
