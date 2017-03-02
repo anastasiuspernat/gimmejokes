@@ -32,6 +32,7 @@ var reddit = require('redwrap');
 const dotenv = require('dotenv');
 
 console.log("#### START");
+console.log(process.env);
 
 // bot settings
 var settings = {
