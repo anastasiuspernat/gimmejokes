@@ -1,7 +1,7 @@
 /*********
  *
  *
- *  Gimme Jokes, a simple Slack joking bot v0.20
+ *  Gimme Jokes, a simple Slack joking bot v0.21
  *  (actually a Reddit shameless plagiary).
  *
  *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
@@ -29,31 +29,37 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // Configurable variables
+// By default the bot listens to "@gimme joke" messages
+// If you deploy it on an SSL HTTPS service it would listen to the "/gimme joke" command instead
+// Here you configure the default mode
+// To configure SSL mode you should leave token and channel to null and instead set the
+// following environment variables:
+// SLACK_CLIENT_ID
+// SLACK_CLIENT_SECRET
 var localBotSettings = {
-    //Your token goes here
+    // Your Slack token goes here
     token: null,
     //Your channel name goes here
     channel: null,
-    //Your bot name goes here
+    //Your bot name goes here - only used in the local mode
     name: "gimme",
+    //Your bot command goes here - only used when bot is deployed, to avoid additional oAuth reqeusts
     command: "/gimme",
-    version: "0.20"
+    version: "0.21"
 };
 
 // Global bot settings
 // Those are taken from Heroku, environment or user
-// To deploy this bot on a 3rd party server you need
+// To deploy this bot on a 3rd party server you need to set the following environment variables:
 var settings = {
     // Slack API bot token - you can replace it with your token
-    token: process.env.SLACK_CLIENT_ID || localBotSettings.token,//Your bot token gies here
+    token: process.env.SLACK_CLIENT_ID || localBotSettings.token,//Your bot token goes here
     // Slack channel name - bot will listen and post on this channel only,
     channel: process.env.SLACK_CLIENT_SECRET || localBotSettings.channel,//Your channel name goes here
     // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
     name: localBotSettings.name,
     // Global scope app information. Will be used if run on Heroku or just as a standalone app
     app: {
-        // This one is get from Slack
-        commandToken: process.env.SLACK_COMMAND_ID,
         // This one doesn't affect Heroku and can be skipped
         commandPort: process.env.SLACK_COMMAND_PORT
     },
@@ -114,7 +120,7 @@ if (settings.token)
 
 
 
-// --------------------------------------- Work in progress ---------------------------------------
+// Command mode! To use this mode you need to deploy this boy on an SSL-enabled hosting
 var cheesyCommens =
     [
         "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
@@ -127,14 +133,13 @@ app.get('/', function (req, res)
 {
     res.send(settings.copyright) });
 
-/* SSL Let's Encrypt CERTIFICATION */
+/* Optional: SSL Let's Encrypt CERTIFICATION */
 const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
 
 // Return the Let's Encrypt certbot response:
 app.get('/.well-known/acme-challenge/:content', function(req, res) {
     res.send(letsEncryptReponse);
 });
-
 /* END OF SSL Let's Encrypt CERTIFICATION */
 
 // Mind that we use POST for SSL/HTTPS
@@ -147,14 +152,15 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
     }
 
     var payload = req.body;
-
     var command = payload.text;
 
+    // /gimme version
     if (command == "version")
     {
         sayToPublic(settings.copyright);
     }
     else
+    // /gimme joke
     if (command.indexOf("joke") >= 0)
     {
         // Then filter all "hot" posts from /r/jokes
@@ -168,6 +174,16 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
 
             sayToPublic(jokeText);
         });
+    } else
+    // /gimme money
+    if (command == "money")
+    {
+        sayToPublic("Yes! Gimme money");
+    }
+    // /gimme something
+    else
+    {
+        sayToPublic("Please talk to me! Say something like */gimme jokes* or */gimme version* or */gimme money*!");
     }
 
 });
