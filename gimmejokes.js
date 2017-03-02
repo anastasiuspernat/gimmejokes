@@ -140,7 +140,7 @@ app.get('/commands/gimme', function(req, res) {
         // Pick a random one
         var post = posts[Math.round(Math.random()*(posts.length-1))].data;
         // Build a message
-        var jokeText = "*"+post.title+"* "+post.selftext+" "+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))];
+        var jokeText = "*"+post.title+"* "+post.selftext+" _"+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))]+"_";
 
         res.status(200).json({"response_type":"in_channel","text":jokeText});
     });
