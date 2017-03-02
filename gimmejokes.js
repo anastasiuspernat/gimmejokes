@@ -27,6 +27,7 @@ var reddit = require('redwrap');
 const dotenv = require('dotenv');
 const express = require('express');
 const bodyParser = require('body-parser');
+var fs = require('fs');
 
 // Configurable variables
 // By default the bot listens to "@gimme joke" messages
@@ -68,6 +69,7 @@ var settings = {
 
 
 var gimme;
+var about = fs.readFileSync("./LICENSE");
 
 // Instantiate a slackbot if we have a bot token
 if (settings.token)
@@ -126,7 +128,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
 {
-    res.send(settings.copyright) });
+    res.send(settings.copyright+"<br>"+about.replace("\n","<br>"));
+
+});
 
 /* Optional: SSL Let's Encrypt CERTIFICATION */
 const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
