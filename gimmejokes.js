@@ -54,7 +54,7 @@ var settings = {
 
 var cheesyCommens =
 [
-    "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile"
+    "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
 ];
 
 var app = express();
