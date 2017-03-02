@@ -31,6 +31,8 @@ var Bot = require('slackbots');
 var reddit = require('redwrap');
 const dotenv = require('dotenv');
 
+console.log("#### START");
+
 // bot settings
 var settings = {
     token: process.env.SLACK_TOKEN,//"YOUR-TOKEN-GOES-HERE",
