@@ -1,10 +1,10 @@
 # Gimme Jokes
 
+<a href="https://slack.com/oauth/authorize?&client_id=112240882771.147772491696&scope=commands,channels:history,im:history"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+
 A Slack joking bot (actually a reddit shameless plagiary)
 
 *Be careful!* Possibly can tell NSFW jokes!
-
-<a href="https://slack.com/oauth/authorize?&client_id=112240882771.147772491696&scope=commands,channels:history,im:history"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
 
 ![](https://github.com/anastasiuspernat/gimmejokes/blob/master/gimmejokes_example.jpg?raw=true)
 
