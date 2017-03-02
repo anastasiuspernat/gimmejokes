@@ -8,6 +8,10 @@ A Slack joking bot (actually a reddit shameless plagiary)
 
 Posts a random joke from reddit's /r/jokes (sorted by "hot"). Works from anywhere, requires Internet connection.
 
+Work in progress
+
+* Deploy bot to public
+
 You will need:
 
 * A Slack account
