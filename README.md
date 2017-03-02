@@ -10,6 +10,12 @@ A Slack joking bot (actually a reddit shameless plagiary)
 
 Posts a random joke from reddit's /r/jokes (sorted by "hot"). Works from anywhere, requires Internet connection.
 
+**Usage**
+
+* If you installed it using Slack button the syntax is **/gimme jokes**
+
+**Deplyoing on a local server**
+
 You will need:
 
 * A Slack account
@@ -23,11 +29,7 @@ Installation:
 Call it **gimme**, write down bot's token, invite your bot to the channel
 * Open **gimmejoekes.js** and fill out **token** and **channel** in **localBotSettings**
 
-**Usage**
-
-* If you installed it using Slack button the syntax is **/gimme jokes**
-
-Using locally
+Local usage:
 
 * Run it! (**node gimmejokes.js**)
 * Type in **@gimme jokes** in your slack channel
