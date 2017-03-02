@@ -30,66 +30,102 @@
 var Bot = require('slackbots');
 var reddit = require('redwrap');
 const dotenv = require('dotenv');
+const express = require('express');
+const bodyParser = require('body-parser');
 
 // bot settings
 var settings = {
-    token: process.env.SLACK_TOKEN,//"YOUR-TOKEN-GOES-HERE",
+    mode: "command", //talk
+    token: process.env.SLACK_CLIENT_ID,//"YOUR-TOKEN-GOES-HERE",
     // Slack API bot token - you can replace it with your token,
     // set it to something like process.env.SLACK_TOKEN to make it confugarable
-    channel: process.env.SLACK_CHANNEL_NAME,//"YOUR CHANNEL NAME",
+    channel: process.env.SLACK_CLIENT_SECRET,//"YOUR CHANNEL NAME",
     // Slack channel name - bot will listen and post on this channel only,
     // set it to something like process.env.SLACK_CHANNEL_NAME to make it confugarable
-    name: process.env.SLACK_BOT_NAME
+    name: process.env.SLACK_BOT_NAME,
     // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
+    app: {
+        commandToken: process.env.SLACK_COMMAND_ID,
+        commandPort: process.env.SLACK_COMMAND_PORT
+    }
 };
 
 
-// Instantiate a slackbot
-var gimme = new Bot(settings);
+var app = express();
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.get('/', function (req, res) { res.send('Gimme Jokes') });
 
+app.post('/commands/gimme', function(req, res) {
+    var payload = req.body;
 
-
-// Initialize and show welcome message
-gimme.on('start', function() {
-    gimme.user = gimme.users.filter(function (user) {
-        console.log("## USER ???",user.name," != ",settings.name);
-        return user.name === settings.name;
-    })[0];
-    gimme.postMessageToChannel(
-        settings.channel,
-        'Hi there, I\'m a talky robot. Talk to me, I\'m so lonely...I can joke! Ask me to *joke*',
-        {as_user: true});
-});
-
-// Channel messages parser
-gimme.on('message', function(message,test) {
-    console.log("#### MESSAGE",message.user,message);
-    var nametag = "<@"+gimme.user.id+">";
-    // Filter only those messages directly addressed to our bot
-    // Also filter out messages produced by our bot
-    if (message.type == "message" && message.user != gimme.user.id && message.text && message.text.indexOf(nametag) != -1)
+    if (!payload || payload.token !== config(settings.app.commandToken)) {
+        var err = 'Invalid token';
+        console.log(err)
+        res.status(401).end(err);
+    } else
     {
-        var asktext = message.text;
-        // If a message has a "joke" text in it
-        if (asktext.toLowerCase().indexOf("joke")>=0)
-        {
-            // Then filter all "hot" posts from /r/jokes
-            reddit.r('jokes').hot().exe(function(err, data, res){
-                // Get all recent hot posts
-                var posts = data.data.children;
-                // Pick a random one
-                var post = posts[Math.round(Math.random()*(posts.length-1))].data;
-                // Build a message
-                var jokeText = "*"+post.title+"* "+post.selftext;
-                // Post a joke!
-                gimme.postMessageToChannel(
-                    settings.channel,
-                    jokeText,
-                    {as_user: true});
-            });
-        }
+        console.log("COMMAND! ",payload)
     }
+
 });
+
+app.listen(settings.app.commandPort, function(err) {
+
+    console.log("Gimme Jokes is listening!");
+
+});
+
+var gimme;
+
+// Instantiate a slackbot if we have a bot token
+if (settings.token)
+{
+    console.log("Gimme Jokes is talking!");
+
+    gimme = new Bot(settings);
+
+    // Initialize and show welcome message
+    gimme.on('start', function() {
+        gimme.user = gimme.users.filter(function (user) {
+            return user.name === settings.name;
+        })[0];
+        gimme.postMessageToChannel(
+            settings.channel,
+            'Hi there, I\'m a talky robot. Talk to me, I\'m so lonely...I can joke! Ask me to *joke*',
+            {as_user: true});
+    });
+
+    // Channel messages parser
+    gimme.on('message', function(message,test) {
+        var nametag = "<@"+gimme.user.id+">";
+        // Filter only those messages directly addressed to our bot
+        // Also filter out messages produced by our bot
+        if (message.type == "message" && message.user != gimme.user.id && message.text && message.text.indexOf(nametag) != -1)
+        {
+            var asktext = message.text;
+            // If a message has a "joke" text in it
+            if (asktext.toLowerCase().indexOf("joke")>=0)
+            {
+                // Then filter all "hot" posts from /r/jokes
+                reddit.r('jokes').hot().exe(function(err, data, res){
+                    // Get all recent hot posts
+                    var posts = data.data.children;
+                    // Pick a random one
+                    var post = posts[Math.round(Math.random()*(posts.length-1))].data;
+                    // Build a message
+                    var jokeText = "*"+post.title+"* "+post.selftext;
+                    // Post a joke!
+                    gimme.postMessageToChannel(
+                        settings.channel,
+                        jokeText,
+                        {as_user: true});
+                });
+            }
+        }
+    });
+
+}
 
 
 

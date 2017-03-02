@@ -1,0 +1,17 @@
+node_modules/
+
+node_modules/verror/jsl.node.conf
+
+node_modules/.bin/har-validator
+
+.idea/vcs.xml
+
+.idea/modules.xml
+
+.idea/gimmejokes.iml
+
+.idea/copyright/profiles_settings.xml
+
+gimmeauth.js
+
+.idea/workspace.xml
