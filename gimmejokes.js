@@ -67,7 +67,7 @@ app.get('/commands/gimme', function(req, res) {
     console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
 
     // Then filter all "hot" posts from /r/jokes
-    reddit.r('jokes').hot().exe(function(err, data, res){
+    reddit.r('jokes').hot().exe(function(err, data, resInner){
         // Get all recent hot posts
         var posts = data.data.children;
         // Pick a random one
