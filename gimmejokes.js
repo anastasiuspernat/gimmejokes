@@ -54,7 +54,8 @@ var settings = {
 var app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/', function (req, res) { res.send('Gimme Jokes') });
+app.get('/', function (req, res)
+            { res.send('Gimme Jokes') });
 
 app.post('/commands/gimme', function(req, res) {
     var payload = req.body;
@@ -72,7 +73,7 @@ app.post('/commands/gimme', function(req, res) {
 
 app.listen(settings.app.commandPort, function(err) {
 
-    console.log("Gimme Jokes is listening!");
+    console.log("Gimme Jokes is listening at "+settings.app.commandPort+"!");
 
 });
 
