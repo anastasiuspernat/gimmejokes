@@ -170,7 +170,7 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
             // Pick a random one
             var post = posts[Math.round(Math.random()*(posts.length-1))].data;
             // Build a message
-            var jokeText = "*"+post.title+"* "+post.selftext+" _"+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))]+"_";
+            var jokeText = "*"+post.title+"* "+post.selftext+" ..._"+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))]+"_";
 
             sayToPublic(jokeText);
         });
