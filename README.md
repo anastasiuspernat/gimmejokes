@@ -1,5 +1,4 @@
 # Gimme Jokes
-# ! Temporary unavailable ! This bot is under re-construction
 
 A Slack joking bot (actually a reddit shameless plagiary)
 
@@ -17,10 +16,10 @@ You will need:
 
 Installation:
 
-* Use **npm** to install **slackbots** and **redwrap** (**npm install [package-name]**)
+* Use **npm** to install **slackbots**, **redwrap**, **dotenv**, **express**, **body-parser** (**npm install [package-name]**)
 * Create a slack bot at https://yourorganization.slack.com/services/new/bot
 Call it **gimme**, write down bot's token, invite your bot to the channel
-* Open **gimmejoekes.js** and fill out **token** and **channel name** in settings below
+* Open **gimmejoekes.js** and fill out **token** and **channel** in **localBotSettings**
 
 Usage
 
