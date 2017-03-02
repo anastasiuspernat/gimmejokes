@@ -66,13 +66,14 @@ app.get('/commands/gimme', function(req, res) {
 
     console.log("!RECEIVED COMMAND");
 
-    if (!payload || payload.token !== config(settings.app.commandToken)) {
+    if (!payload || payload.token !== settings.app.commandToken) {
         var err = 'Invalid token';
         console.log(err)
         res.status(401).end(err);
     } else
     {
-        console.log("COMMAND! ",payload)
+        res.set('content-type', 'application/json')
+        res.status(200).json("Imma be!");
     }
 
 });
