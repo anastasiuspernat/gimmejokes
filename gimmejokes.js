@@ -61,7 +61,7 @@ app.get('/', function (req, res)
                 console.log("!!!!!!! ACCESSED");
                 res.send('Gimme Jokes') });
 
-app.post('/commands/gimme', function(req, res) {
+app.get('/commands/gimme', function(req, res) {
     var payload = req.body;
 
     console.log("!RECEIVED COMMAND");
