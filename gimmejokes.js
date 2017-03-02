@@ -34,8 +34,10 @@ const dotenv = require('dotenv');
 // bot settings
 var settings = {
     token: process.env.SLACK_TOKEN, // Slack API bot token - you can replace it with your token
-    channel: process.env.CHANNEL_NAME // Slack channel name - bot will listen and post on this channel only
+    channel: process.env.SLACK_CHANNEL_NAME, // Slack channel name - bot will listen and post on this channel only
+    name: process.env.SLACK_BOT_NAME
 };
+
 
 // Instantiate a slackbot
 var gimme = new Bot(settings);

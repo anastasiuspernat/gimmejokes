@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "slackbots": "^1.0.2",
-    "redwrap": "0.0.4",
+    "redwrap": "^0.0.4",
     "dotenv": "^2.0.0"
   },
   "keywords": [
