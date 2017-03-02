@@ -52,7 +52,7 @@ var gimme = new Bot(settings);
 
 
 gimme.user = gimme.users.filter(function (user) {
-    console.log("## USER",user);
+    console.log("## USER ???",user.name," != ",settings.name);
     return user.name === settings.name;
 })[0];
 
