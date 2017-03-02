@@ -3,7 +3,7 @@ A slack joking bot (actually a reddit shameless plagiary)
 
 ![](https://github.com/anastasiuspernat/gimmejokes/blob/master/gimmejokes_example.jpg?raw=true)
 
-Posts a random joke from reddit's /r/jokes (sorted by "hot")
+Posts a random joke from reddit's /r/jokes (sorted by "hot"). Works from anywhere, requires Internet connection.
 
 You will need:
 
