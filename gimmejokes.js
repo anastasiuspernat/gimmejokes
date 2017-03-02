@@ -31,9 +31,6 @@ var Bot = require('slackbots');
 var reddit = require('redwrap');
 const dotenv = require('dotenv');
 
-console.log("#### START");
-console.log(process.env);
-
 // bot settings
 var settings = {
     token: process.env.SLACK_TOKEN,//"YOUR-TOKEN-GOES-HERE",
@@ -66,7 +63,6 @@ gimme.on('start', function() {
 
 // Channel messages parser
 gimme.on('message', function(message,test) {
-    console.log("###!!!!",gimme.user);
     var nametag = "<@"+gimme.user.id+">";
     // Filter only those messages directly addressed to our bot
     // Also filter out messages produced by our bot
