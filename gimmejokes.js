@@ -55,7 +55,9 @@ var app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
-            { res.send('Gimme Jokes') });
+            {
+                console.log("!!!!!!! ACCESSED");
+                res.send('Gimme Jokes') });
 
 app.post('/commands/gimme', function(req, res) {
     var payload = req.body;
