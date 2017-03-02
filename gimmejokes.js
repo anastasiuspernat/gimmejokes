@@ -1,7 +1,7 @@
 /*********
  *
  *
- *  Gimme Jokes, a slack joking bot
+ *  Gimme Jokes, a slack joking bot v0.19
  *  (actually a reddit shameless plagiary).
  *
  *  Posts a random joke from reddit's /r/jokes (sorted by "hot")
@@ -35,7 +35,7 @@ const bodyParser = require('body-parser');
 
 // Configurable variables
 var localBotSettings = {
-   //Your token goes here
+    //Your token goes here
     token: null,
     //Your channel name goes here
     channel: null,
@@ -117,16 +117,25 @@ if (settings.token)
 
 // --------------------------------------- Work in progress ---------------------------------------
 var cheesyCommens =
-[
-    "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
-];
+    [
+        "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
+    ];
 
 var app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
-            {
-                res.send('Gimme Jokes') });
+{
+    res.send('Gimme Jokes') });
+
+/* CERTIFICATION */
+const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
+
+// Return the Let's Encrypt certbot response:
+app.get('/.well-known/acme-challenge/:content', function(req, res) {
+    res.send(letsEncryptReponse);
+});
+
 
 app.get('/commands/gimme', function(req, res) {
     var payload = req.body;
@@ -146,15 +155,15 @@ app.get('/commands/gimme', function(req, res) {
     });
 
     // doesn't work, no tokens
-/*    if (!payload || payload.token !== settings.app.commandToken) {
-        var err = 'Invalid token';
-        console.log(err)
-        res.status(401).end(err);
-    } else
-    {
-        res.set('content-type', 'application/json')
-        res.status(200).json("Imma be!");
-    }*/
+    /*    if (!payload || payload.token !== settings.app.commandToken) {
+     var err = 'Invalid token';
+     console.log(err)
+     res.status(401).end(err);
+     } else
+     {
+     res.set('content-type', 'application/json')
+     res.status(200).json("Imma be!");
+     }*/
 
 });
 
@@ -166,6 +175,5 @@ app.listen(port, function(err) {
     console.log("Gimme Jokes is listening at "+port+"!");
 
 });
-
 
 
