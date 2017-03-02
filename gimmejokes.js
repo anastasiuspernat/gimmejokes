@@ -1,17 +1,12 @@
 /*********
  *
  *
- *  Gimme Jokes, a slack joking bot v0.19
- *  (actually a reddit shameless plagiary).
+ *  Gimme Jokes, a simple Slack joking bot v0.20
+ *  (actually a Reddit shameless plagiary).
  *
- *  Posts a random joke from reddit's /r/jokes (sorted by "hot")
- *  Installation:
- *  1) Use npm to install slackbots and redwrap
- *  2) Create a slackbot bot at https://yourorganization.slack.com/services/new/bot
- *     Call it "gimme", write down bot's token, invite your bot to the channel
- *  3) Fill out token and channel name in settings below
- *  4) Run it! ("node gimmejokes.js")
- *  5) Type in "@gimme jokes" in your slack channel
+ *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
+ *  See full description and instructions at
+ *  https://github.com/anastasiuspernat/gimmejokes
  *
  *  (C) 2017 Anastasiy, anastasiy.com
  *  Distributed under MIT license
@@ -40,11 +35,14 @@ var localBotSettings = {
     //Your channel name goes here
     channel: null,
     //Your bot name goes here
-    name: "gimme"
+    name: "gimme",
+    command: "/gimme",
+    version: "0.20"
 };
 
 // Global bot settings
 // Those are taken from Heroku, environment or user
+// To deploy this bot on a 3rd party server you need
 var settings = {
     // Slack API bot token - you can replace it with your token
     token: process.env.SLACK_CLIENT_ID || localBotSettings.token,//Your bot token gies here
@@ -126,9 +124,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
 {
-    res.send('Gimme Jokes') });
+    res.send('Gimme Jokes, a Slack joking bot v'+settings.version+" (C) 2017 Anastasiy, http://anastasiy.com") });
 
-/* CERTIFICATION */
+/* SSL Let's Encrypt CERTIFICATION */
 const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
 
 // Return the Let's Encrypt certbot response:
@@ -136,12 +134,14 @@ app.get('/.well-known/acme-challenge/:content', function(req, res) {
     res.send(letsEncryptReponse);
 });
 
+/* END OF SSL Let's Encrypt CERTIFICATION */
+
 // Mind that we use POST for SSL/HTTPS
 // And GET for normal access
-app.post('/commands/gimme', function(req, res) {
+app.post('/commands'+localBotSettings.command, function(req, res) {
     var payload = req.body;
 
-    //console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
+    console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
 
     // Then filter all "hot" posts from /r/jokes
     reddit.r('jokes').hot().exe(function(err, data, resInner){
