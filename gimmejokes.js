@@ -121,11 +121,6 @@ if (settings.token)
 
 
 // Command mode! To use this mode you need to deploy this boy on an SSL-enabled hosting
-var cheesyCommens =
-    [
-        "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile", "ha ha ha hi hi hoho lol"
-    ];
-
 var app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -170,7 +165,7 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
             // Pick a random one
             var post = posts[Math.round(Math.random()*(posts.length-1))].data;
             // Build a message
-            var jokeText = "*"+post.title+"* "+post.selftext+" ..._"+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))]+"_";
+            var jokeText = "*"+post.title+"* "+post.selftext;
 
             sayToPublic(jokeText);
         });
