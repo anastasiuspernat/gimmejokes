@@ -64,7 +64,7 @@ app.get('/', function (req, res)
 app.get('/commands/gimme', function(req, res) {
     var payload = req.body;
 
-    console.log("!RECEIVED COMMAND ",payload.token,settings.app.commandToken);
+    console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
 
     if (!payload || payload.token !== settings.app.commandToken) {
         var err = 'Invalid token';
