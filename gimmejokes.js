@@ -136,8 +136,9 @@ app.get('/.well-known/acme-challenge/:content', function(req, res) {
     res.send(letsEncryptReponse);
 });
 
-
-app.get('/commands/gimme', function(req, res) {
+// Mind that we use POST for SSL/HTTPS
+// And GET for normal access
+app.post('/commands/gimme', function(req, res) {
     var payload = req.body;
 
     //console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
