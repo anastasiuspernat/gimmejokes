@@ -1,0 +1,34 @@
+{
+  "name": "gimme",
+  "description": "Gimme Jokes, a slack joking bot (actually a reddit shameless plagiary)",
+  "version": "1.0.0",
+  "main": "gimmejoke.js",
+  "scripts": {
+    "start": "node gimmejokes.js",
+    "test": "standard"
+  },
+  "author": {
+    "email": "hi@anastasiy.com",
+    "name": "Anastasiy Safari",
+    "url": "http://anastasiy.com"
+  },
+  "bugs": {
+    "url": "http://anastasiy.com"
+  },
+  "dependencies": {
+    "slackbots": "^1.0.2",
+    "redwrap": "0.0.4",
+    "dotenv": "^2.0.0"
+  },
+  "keywords": [
+    "slack",
+    "slack-bot",
+    "bot",
+    "heroku",
+    "reddit"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": "5.7.1"
+  }
+}
