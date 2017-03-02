@@ -52,6 +52,10 @@ var settings = {
     }
 };
 
+var cheesyCommens =
+[
+    "ha ha", "lol", "ho ho ho", "xoxo:)", ":)", ":D", "*laughing*", "smilesmilesmile"
+];
 
 var app = express();
 app.use(bodyParser.json())
@@ -72,7 +76,7 @@ app.get('/commands/gimme', function(req, res) {
         // Pick a random one
         var post = posts[Math.round(Math.random()*(posts.length-1))].data;
         // Build a message
-        var jokeText = "*"+post.title+"* "+post.selftext;
+        var jokeText = "*"+post.title+"* "+post.selftext+" "+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))];
 
         res.status(200).json({"response_type":"in_channel","text":jokeText});
     });
