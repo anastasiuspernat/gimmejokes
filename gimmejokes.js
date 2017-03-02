@@ -50,14 +50,14 @@ var settings = {
 // Instantiate a slackbot
 var gimme = new Bot(settings);
 
+
+gimme.user = gimme.users.filter(function (user) {
+    console.log("## USER",user);
+    return user.name === settings.name;
+})[0];
+
 // Initialize and show welcome message
 gimme.on('start', function() {
-    var self = this;
-    console.log("### START 2",self.name);
-    this.user = this.users.filter(function (user) {
-        console.log("## USER",user);
-        return user.name === self.name;
-    })[0];
     gimme.postMessageToChannel(
         settings.channel,
         'Hi there, I\'m a talky robot. Talk to me, I\'m so lonely...I can joke! Ask me to *joke*',
