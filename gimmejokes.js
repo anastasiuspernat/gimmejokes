@@ -58,7 +58,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
             {
-                console.log("!!!!!!! ACCESSED");
                 res.send('Gimme Jokes') });
 
 app.get('/commands/gimme', function(req, res) {
@@ -77,9 +76,6 @@ app.get('/commands/gimme', function(req, res) {
 
         res.status(200).json(jokeText);
     });
-
-
-    res.status(200).json("Imma be!");
 
     // doesn't work, no tokens
 /*    if (!payload || payload.token !== settings.app.commandToken) {
