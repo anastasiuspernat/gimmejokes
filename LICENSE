@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+PRIVACY POLICY:
+
+Gimme Jokes doesn't collect or store any personal data, it doesn't store cookies. Gimme Jokes uses secure HTTPS protocol to recieve the command you sent to it and to retrieve Reddit posts. You can obtain and examine full source of the software at:
+https://github.com/anastasiuspernat/gimmejokes
