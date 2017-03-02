@@ -53,7 +53,9 @@ var gimme = new Bot(settings);
 // Initialize and show welcome message
 gimme.on('start', function() {
     var self = this;
+    console.log("### START 2",self.name);
     this.user = this.users.filter(function (user) {
+        console.log("## USER",user);
         return user.name === self.name;
     })[0];
     gimme.postMessageToChannel(
@@ -64,6 +66,7 @@ gimme.on('start', function() {
 
 // Channel messages parser
 gimme.on('message', function(message,test) {
+    console.log("###!!!!",gimme.user);
     var nametag = "<@"+gimme.user.id+">";
     // Filter only those messages directly addressed to our bot
     // Also filter out messages produced by our bot
