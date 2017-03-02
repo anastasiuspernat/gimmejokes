@@ -51,13 +51,13 @@ var settings = {
 var gimme = new Bot(settings);
 
 
-gimme.user = gimme.users.filter(function (user) {
-    console.log("## USER ???",user.name," != ",settings.name);
-    return user.name === settings.name;
-})[0];
 
 // Initialize and show welcome message
 gimme.on('start', function() {
+    gimme.user = gimme.users.filter(function (user) {
+        console.log("## USER ???",user.name," != ",settings.name);
+        return user.name === settings.name;
+    })[0];
     gimme.postMessageToChannel(
         settings.channel,
         'Hi there, I\'m a talky robot. Talk to me, I\'m so lonely...I can joke! Ask me to *joke*',
