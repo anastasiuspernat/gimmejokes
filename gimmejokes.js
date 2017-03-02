@@ -65,6 +65,20 @@ app.get('/commands/gimme', function(req, res) {
     var payload = req.body;
 
     console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
+
+    // Then filter all "hot" posts from /r/jokes
+    reddit.r('jokes').hot().exe(function(err, data, res){
+        // Get all recent hot posts
+        var posts = data.data.children;
+        // Pick a random one
+        var post = posts[Math.round(Math.random()*(posts.length-1))].data;
+        // Build a message
+        var jokeText = "*"+post.title+"* "+post.selftext;
+
+        res.status(200).json(jokeText);
+    });
+
+
     res.status(200).json("Imma be!");
 
     // doesn't work, no tokens
