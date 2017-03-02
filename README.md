@@ -27,7 +27,11 @@ Installation:
 Call it **gimme**, write down bot's token, invite your bot to the channel
 * Open **gimmejoekes.js** and fill out **token** and **channel** in **localBotSettings**
 
-Usage
+**Usage**
+
+* If you installed it using Slack button the syntax is **/gimme jokes**
+
+Using locally
 
 * Run it! (**node gimmejokes.js**)
 * Type in **@gimme jokes** in your slack channel
