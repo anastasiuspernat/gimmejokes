@@ -42,6 +42,8 @@ var settings = {
 // Instantiate a slackbot
 var gimme = new Bot(settings);
 
+console.log("BOT STARTED");
+
 // Initialize and show welcome message
 gimme.on('start', function() {
     var self = this;
