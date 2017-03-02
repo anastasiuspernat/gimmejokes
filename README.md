@@ -13,7 +13,7 @@ You will need:
 
 Installation:
 
-* Use npm to install **slackbots** and **redwrap**
+* Use **npm** to install **slackbots** and **redwrap** (**npm install [package-name]**)
 * Create a slackbot bot at https://yourorganization.slack.com/services/new/bot
 Call it *gimme*, write down bot's token, invite your bot to the channel
 * Open **gimmejoekes.js** and fill out **token** and **channel name** in settings below
