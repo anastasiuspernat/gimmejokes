@@ -22,6 +22,7 @@ Usage
 
 * Run it! (**node gimmejokes.js**)
 * Type in **@gimme jokes** in your slack channel
+* Enjoy! Ping me back with suggestions!
 
 &copy; 2017 Anastasiy, http://anastasiy.com
 
