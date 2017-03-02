@@ -56,7 +56,8 @@ var settings = {
         commandToken: process.env.SLACK_COMMAND_ID,
         // This one doesn't affect Heroku and can be skipped
         commandPort: process.env.SLACK_COMMAND_PORT
-    }
+    },
+    copyright: 'Gimme Jokes, a Slack joking bot v'+localBotSettings.version+" (C) 2017 Anastasiy, http://anastasiy.com"
 };
 
 
@@ -124,7 +125,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
 {
-    res.send('Gimme Jokes, a Slack joking bot v'+settings.version+" (C) 2017 Anastasiy, http://anastasiy.com") });
+    res.send(settings.copyright) });
 
 /* SSL Let's Encrypt CERTIFICATION */
 const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
@@ -139,32 +140,35 @@ app.get('/.well-known/acme-challenge/:content', function(req, res) {
 // Mind that we use POST for SSL/HTTPS
 // And GET for normal access
 app.post('/commands'+localBotSettings.command, function(req, res) {
+
+    function sayToPublic(text)
+    {
+        res.status(200).json({"response_type":"in_channel","text":text});
+    }
+
     var payload = req.body;
 
-    console.log("!RECEIVED COMMAND ",req.body,payload,payload.token,settings.app.commandToken);
+    var command = payload.text;
 
-    // Then filter all "hot" posts from /r/jokes
-    reddit.r('jokes').hot().exe(function(err, data, resInner){
-        // Get all recent hot posts
-        var posts = data.data.children;
-        // Pick a random one
-        var post = posts[Math.round(Math.random()*(posts.length-1))].data;
-        // Build a message
-        var jokeText = "*"+post.title+"* "+post.selftext+" _"+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))]+"_";
+    if (command == "version")
+    {
+        sayToPublic(settings.copyright);
+    }
+    else
+    if (command.indexOf("joke") >= 0)
+    {
+        // Then filter all "hot" posts from /r/jokes
+        reddit.r('jokes').hot().exe(function(err, data, resInner){
+            // Get all recent hot posts
+            var posts = data.data.children;
+            // Pick a random one
+            var post = posts[Math.round(Math.random()*(posts.length-1))].data;
+            // Build a message
+            var jokeText = "*"+post.title+"* "+post.selftext+" _"+cheesyCommens[Math.round(Math.random()*(cheesyCommens.length-1))]+"_";
 
-        res.status(200).json({"response_type":"in_channel","text":jokeText});
-    });
-
-    // doesn't work, no tokens
-    /*    if (!payload || payload.token !== settings.app.commandToken) {
-     var err = 'Invalid token';
-     console.log(err)
-     res.status(401).end(err);
-     } else
-     {
-     res.set('content-type', 'application/json')
-     res.status(200).json("Imma be!");
-     }*/
+            sayToPublic(jokeText);
+        });
+    }
 
 });
 
