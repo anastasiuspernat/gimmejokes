@@ -46,14 +46,16 @@ var settings = {
     // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
     app: {
         commandToken: process.env.SLACK_COMMAND_ID,
+
+        // This one doesn't affect Heroku
         commandPort: process.env.SLACK_COMMAND_PORT
     }
 };
 
 
 var app = express();
-//app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
             {
                 console.log("!!!!!!! ACCESSED");
@@ -61,6 +63,8 @@ app.get('/', function (req, res)
 
 app.post('/commands/gimme', function(req, res) {
     var payload = req.body;
+
+    console.log("!RECEIVED COMMAND");
 
     if (!payload || payload.token !== config(settings.app.commandToken)) {
         var err = 'Invalid token';
