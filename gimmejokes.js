@@ -73,10 +73,12 @@ app.post('/commands/gimme', function(req, res) {
 
 });
 
-app.listen(3000, function(err) {
+var port = process.env.PORT || settings.app.commandPort;
+
+app.listen(port, function(err) {
 
     console.log(err);
-    console.log("Gimme Jokes is listening at "+settings.app.commandPort+"!");
+    console.log("Gimme Jokes is listening at "+port+"!");
 
 });
 
