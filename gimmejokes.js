@@ -74,7 +74,7 @@ app.get('/commands/gimme', function(req, res) {
         // Build a message
         var jokeText = "*"+post.title+"* "+post.selftext;
 
-        res.status(200).json(jokeText);
+        res.status(200).json({"response_type":"in_channel","text":jokeText});
     });
 
     // doesn't work, no tokens
