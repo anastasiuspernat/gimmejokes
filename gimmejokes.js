@@ -47,16 +47,16 @@ var localBotSettings = {
     name: "gimme",
     //Your bot command goes here - only used when bot is deployed, to avoid additional oAuth reqeusts
     command: "/gimme",
-    version: "0.22",
-    mode: "app"
+    version: "0.24"
 };
 
 // Global bot settings
 // Those are taken from Heroku, environment or user
 // To deploy this bot on a 3rd party server you need to set the following environment variables:
 var settings = {
-    // Slack API bot token - you can replace it with your token
+    // Slack API bot token
     token: process.env.SLACK_CLIENT_ID || localBotSettings.token,//Your bot token goes here
+    // Slack API bot secret
     secret: process.env.SLACK_CLIENT_SECRET,
     // Slack channel name - bot will listen and post on this channel only,
     channel: process.env.SLACK_CHANNEL_NAME || localBotSettings.channel,//Your channel name goes here
@@ -74,7 +74,7 @@ var settings = {
 var gimme;
 
 // Instantiate a slackbot if we have a bot token
-if (localBotSettings.mode != "app")
+if (localBotSettings.token)
 {
     console.log("Gimme Jokes is talking!");
 
@@ -159,10 +159,7 @@ app.get('/slack', function(req, res){
              }
              });             */
 
-
-//            res.redirect('http://www.slack.com');
-
-            res.send("<body><table width='100%' height='100%' style='font-family: Arial'><tr><td align='center' valign='middle'>Gimme Jokes is now live in your chat room!<br><a href='http://www.slack.com'>Get back to Slack</a></td></tr></table></body>");
+            res.send("<body><table width='100%' height='100%' style='font-family: Arial'><tr><td align='center' valign='middle'>Gimme Jokes v"+localBotSettings.version+" is now live in your chat room!<br><a href='http://www.slack.com'>Get back to Slack</a></td></tr></table></body>");
         }
     });
 });
@@ -226,7 +223,7 @@ var port = process.env.PORT || settings.app.commandPort;
 
 app.listen(port, function(err) {
 
-    console.log("Gimme Jokes is listening at "+port+"!");
+    console.log("Gimme Jokes v"+localBotSettings.version+" is listening at "+port+"!");
 
 });
 
