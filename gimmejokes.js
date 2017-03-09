@@ -148,12 +148,22 @@ app.get('/slack', function(req, res){
         code: req.query.code
     }};
     request.post('https://slack.com/api/oauth.access', data, function (error, response, body) {
-        console.log("######## AUTH 2");
+        console.log("######## AUTH 2",response.statusCode,error);
         if (!error && response.statusCode == 200) {
             // You are done.
             // If you want to get team info, you need to get the token here
             var token = JSON.parse(body).access_token; // Auth token
             console.log("######## AUTH OK");
+            var team;
+            try
+            {
+                team = JSON.parse(body).team.domain;
+            } catch(e)
+            {
+
+            }
+            console.log(team);
+            res.redirect('http://www.slack.com');
         }
     });
 });
