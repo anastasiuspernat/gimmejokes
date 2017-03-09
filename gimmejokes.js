@@ -162,7 +162,7 @@ app.get('/slack', function(req, res){
 
 //            res.redirect('http://www.slack.com');
 
-            res.send("<body><div style='width:100%;height:100%;font-family: Arial'>Gimme Jokes is now live in your chat room!<br><a href='http://www.slack.com'>Get back to Slack</a></div></body>");
+            res.send("<body><table width='100%' height='100%' style='font-family: Arial'><tr><td align='center' valign='middle'>Gimme Jokes is now live in your chat room!<br><a href='http://www.slack.com'>Get back to Slack</a></td></tr></table></body>");
         }
     });
 });
