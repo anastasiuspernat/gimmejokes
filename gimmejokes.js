@@ -27,6 +27,7 @@ var reddit = require('redwrap');
 const dotenv = require('dotenv');
 const express = require('express');
 const bodyParser = require('body-parser');
+const request = require('request');
 var fs = require('fs');
 
 // Configurable variables
