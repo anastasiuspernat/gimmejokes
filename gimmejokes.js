@@ -137,7 +137,7 @@ app.get('/', function (req, res)
 });
 
 // oAuth
-app.get('/slack', function(req, res){
+/*app.get('/slack', function(req, res){
 
     console.log("######## AUTH 1");
     var data = {form: {
@@ -154,7 +154,7 @@ app.get('/slack', function(req, res){
             console.log("######## AUTH OK");
         }
     });
-});
+});*/
 
 /* Optional: SSL Let's Encrypt CERTIFICATION */
 const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
