@@ -55,15 +55,14 @@ var localBotSettings = {
 var settings = {
     // Slack API bot token - you can replace it with your token
     token: process.env.SLACK_CLIENT_ID || localBotSettings.token,//Your bot token goes here
-    secret: process.env.SLACK_CLIENT_SECRET,
     // Slack channel name - bot will listen and post on this channel only,
-    channel: process.env.SLACK_CHANNEL_NAME || localBotSettings.channel,//Your channel name goes here
+    channel: process.env.SLACK_CLIENT_SECRET || localBotSettings.channel,//Your channel name goes here
     // Name of the bot, set it to something like process.env.SLACK_BOT_NAME to make it confugarable
     name: localBotSettings.name,
     // Global scope app information. Will be used if run on Heroku or just as a standalone app
     app: {
         // This one doesn't affect Heroku and can be skipped
-        commandPort: process.env.SLACK_COMMAND_PORT,
+        commandPort: process.env.SLACK_COMMAND_PORT
     },
     copyright: 'Gimme Jokes, a Slack joking bot v'+localBotSettings.version+" (C) 2017 Anastasiy, http://anastasiy.com"
 };
@@ -135,26 +134,6 @@ app.get('/', function (req, res)
     ");
 
 });
-
-// oAuth
-/*app.get('/slack', function(req, res){
-
-    console.log("######## AUTH 1");
-    var data = {form: {
-        client_id: settings.token,
-        client_secret: settings.secret,
-        code: req.query.code
-    }};
-    request.post('https://slack.com/api/oauth.access', data, function (error, response, body) {
-        console.log("######## AUTH 2");
-        if (!error && response.statusCode == 200) {
-            // You are done.
-            // If you want to get team info, you need to get the token here
-            var token = JSON.parse(body).access_token; // Auth token
-            console.log("######## AUTH OK");
-        }
-    });
-});*/
 
 /* Optional: SSL Let's Encrypt CERTIFICATION */
 const letsEncryptReponse = process.env.CERTBOT_RESPONSE;
