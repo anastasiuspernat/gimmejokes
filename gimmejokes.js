@@ -37,7 +37,7 @@ var fs = require('fs');
 // following environment variables:
 // SLACK_CLIENT_ID
 // SLACK_CLIENT_SECRET
-var c = {
+var localBotSettings = {
     // Your Slack token goes here
     token: null,
     //Your channel name goes here
