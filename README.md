@@ -6,7 +6,7 @@ A Slack joking bot (actually a reddit shameless plagiary)
 
 *Be careful!* Possibly can tell NSFW jokes!
 
-![](https://github.com/anastasiuspernat/gimmejokes/blob/master/gimmejokes_example.jpg?raw=true)
+![](https://github.com/anastasiuspernat/gimmejokes/raw/master/gimmejokes_example2.jpg?raw=true)
 
 Posts a random joke from reddit's /r/jokes (sorted by "hot"). Works from anywhere, requires Internet connection.
 
