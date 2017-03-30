@@ -1,7 +1,7 @@
 /*********
  *
  *
- *  Gimme Jokes, a simple Slack joking bot v0.22
+ *  Gimme Jokes, a simple Slack joking bot v0.25
  *  (actually a Reddit shameless plagiary).
  *
  *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
@@ -29,6 +29,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 var fs = require('fs');
+var storage = require('node-persist');
 
 // Configurable variables
 // By default the bot listens to "@gimme joke" messages
@@ -47,7 +48,7 @@ var localBotSettings = {
     name: "gimme",
     //Your bot command goes here - only used when bot is deployed, to avoid additional oAuth reqeusts
     command: "/gimme",
-    version: "0.24"
+    version: "0.25"
 };
 
 // Global bot settings
@@ -67,9 +68,19 @@ var settings = {
         // This one doesn't affect Heroku and can be skipped
         commandPort: process.env.SLACK_COMMAND_PORT,
     },
-    copyright: 'Gimme Jokes, a Slack joking bot v'+localBotSettings.version+" (C) 2017 Anastasiy, http://anastasiy.com"
+    copyright: 'Gimme Jokes, a Slack joking bot v'+localBotSettings.version+" (C) 2017 Anastasiy, http://anastasiy.com",
+    // Statistics: how many times it was installed
+    stat_installed: 0,
+    // Statistics: how many times it was invoked
+    stat_served: 0,
+    // Keys in the DB
+    stat_key_installed: "installed",
+    stat_key_served: "served"
 };
 
+
+// For simple statistics
+storage.initSync();
 
 var gimme;
 
@@ -132,7 +143,7 @@ app.get('/', function (req, res)
 {
     res.send("Gimme Jokes PRIVACY POLICY:<br>\
     <br>\
-    Gimme Jokes doesn't collect or store any personal data, or data or commands you sent, it doesn't store cookies. Gimme Jokes uses secure HTTPS protocol to recieve the commands you sent to it and only to retrieve Reddit posts. You can obtain and examine full source of the software at:<br>\
+    Gimme Jokes doesn't collect or store any personal data, or data or commands you sent, it doesn't store cookies. It does collect the number of times it was installed and invoked - anonymously. Gimme Jokes uses secure HTTPS protocol to recieve the commands you sent to it and only to retrieve Reddit posts. You can obtain and examine full source of the software at:<br>\
     https://github.com/anastasiuspernat/gimmejokes\
     ");
 
@@ -158,6 +169,11 @@ app.get('/slack', function(req, res){
              res.redirect('http://' +team+ '.slack.com');
              }
              });             */
+
+            // Anonymous stats
+            settings.stat_installed = +(storage.getItemSync(settings.stat_key_installed));
+            settings.stat_installed++;
+            storage.setItemSync(settings.stat_key_installed,settings.stat_installed);
 
             res.send("<body><table width='100%' height='100%' style='font-family: Arial'><tr><td align='center' valign='middle'>Gimme Jokes v"+localBotSettings.version+" is now live in your chat room!<br><a href='http://www.slack.com'>Get back to Slack</a></td></tr></table></body>");
         }
@@ -194,6 +210,11 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
     // /gimme joke
     if (command.indexOf("joke") >= 0)
     {
+        // Anonymous stats
+        settings.stat_served = +(storage.getItemSync(settings.stat_key_served));
+        settings.stat_served++;
+        storage.setItemSync(settings.stat_key_served,settings.stat_served);
+
         // Then filter all "hot" posts from /r/jokes
         reddit.r('jokes').hot().exe(function(err, data, resInner){
             // Get all recent hot posts
