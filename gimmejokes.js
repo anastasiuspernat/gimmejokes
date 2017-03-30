@@ -81,6 +81,8 @@ var settings = {
 
 // For simple statistics
 storage.initSync();
+settings.stat_served = +(storage.getItemSync(settings.stat_key_served));
+settings.stat_installed = +(storage.getItemSync(settings.stat_key_installed));
 
 var gimme;
 
