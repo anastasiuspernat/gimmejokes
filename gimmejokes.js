@@ -81,8 +81,8 @@ var settings = {
 
 // For simple statistics
 storage.initSync();
-settings.stat_served = +(storage.getItemSync(settings.stat_key_served));
-settings.stat_installed = +(storage.getItemSync(settings.stat_key_installed));
+settings.stat_served = storage.getItemSync(settings.stat_key_served) || 1;
+settings.stat_installed = storage.getItemSync(settings.stat_key_installed) || 1;
 
 var gimme;
 
@@ -173,7 +173,6 @@ app.get('/slack', function(req, res){
              });             */
 
             // Anonymous stats
-            settings.stat_installed = +(storage.getItemSync(settings.stat_key_installed));
             settings.stat_installed++;
             storage.setItemSync(settings.stat_key_installed,settings.stat_installed);
 
@@ -213,7 +212,6 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
     if (command.indexOf("joke") >= 0)
     {
         // Anonymous stats
-        settings.stat_served = +(storage.getItemSync(settings.stat_key_served));
         settings.stat_served++;
         storage.setItemSync(settings.stat_key_served,settings.stat_served);
 
