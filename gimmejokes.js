@@ -68,7 +68,7 @@ var settings = {
         // This one doesn't affect Heroku and can be skipped
         commandPort: process.env.SLACK_COMMAND_PORT,
     },
-    copyright: 'Gimme Jokes, a Slack joking bot v'+localBotSettings.version+" (C) 2017 Anastasiy, http://anastasiy.com",
+    copyright: 'Gimme Jokes, a Slack joking bot v'+localBotSettings.version+" (C) 2017 Anastasiy, http://anastasiy.com.",
     // Statistics: how many times it was installed
     stat_installed: 0,
     // Statistics: how many times it was invoked
@@ -204,7 +204,7 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
     // /gimme version
     if (command == "version")
     {
-        sayToPublic(settings.copyright);
+        sayToPublic(settings.copyright+" Served "+settings.stat_served+" jokes so far.");
     }
     else
     // /gimme joke
