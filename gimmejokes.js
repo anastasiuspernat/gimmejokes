@@ -205,7 +205,7 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
     // /gimme version
     if (command == "version")
     {
-        sayToPublic(settings.copyright+" Served "+settings.stat_served+" jokes so far.");
+        sayToPublic(settings.copyright+" Delivered "+settings.stat_served+" jokes so far.");
     }
     else
     // /gimme joke
