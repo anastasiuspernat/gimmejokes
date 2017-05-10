@@ -115,8 +115,8 @@ if (localBotSettings.token)
             // If a message has a "joke" text in it
             if (asktext.toLowerCase().indexOf("joke")>=0)
             {
-                // Then filter all "hot" posts from /r/jokes
-                reddit.r('jokes').hot().limit(100,function(err, data, res){
+                // Then filter 20 top "hot" posts from /r/jokes
+                reddit.r('jokes').hot().limit(20,function(err, data, res){
                     // Get all recent hot posts
                     var posts = data.data.children;
                     // Pick a random one
