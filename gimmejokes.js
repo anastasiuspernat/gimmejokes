@@ -48,7 +48,7 @@ var localBotSettings = {
     name: "gimme",
     //Your bot command goes here - only used when bot is deployed, to avoid additional oAuth reqeusts
     command: "/gimme",
-    version: "0.25"
+    version: "0.26"
 };
 
 // Global bot settings
@@ -147,6 +147,7 @@ app.get('/', function (req, res)
     <br>\
     Gimme Jokes doesn't collect or store any personal data, or data or commands you sent, it doesn't store cookies. It does collect the number of times it was installed and invoked - anonymously. Gimme Jokes uses secure HTTPS protocol to recieve the commands you sent to it and only to retrieve Reddit posts. You can obtain and examine full source of the software at:<br>\
     https://github.com/anastasiuspernat/gimmejokes\
+    <br><br><a href=\"https://slack.com/oauth/authorize?&client_id=112240882771.147772491696&scope=commands\"><img alt=\"Add to Slack\" height=\"40\" width=\"139\" src=\"https://platform.slack-edge.com/img/add_to_slack.png\" srcset=\"https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x\" /></a>\
     ");
 
 });
