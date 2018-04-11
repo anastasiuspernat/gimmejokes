@@ -1,7 +1,7 @@
 /*********
  *
  *
- *  Gimme Jokes, a simple Slack joking bot v1.29
+ *  Gimme Jokes, a simple Slack joking bot v1.30
  *  (actually a Reddit shameless plagiary).
  *
  *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
@@ -109,7 +109,6 @@ if (localBotSettings.token)
     // Channel messages parser
     gimme.on('message', function(message,test) {
         var nametag = "<@"+gimme.user.id+">";
-     console.log("step 1");
         // Filter only those messages directly addressed to our bot
         // Also filter out messages produced by our bot
         if (message.type == "message" && message.user != gimme.user.id && message.text && message.text.indexOf(nametag) != -1)
@@ -118,18 +117,13 @@ if (localBotSettings.token)
             // If a message has a "joke" text in it
             if (asktext.toLowerCase().indexOf("joke")>=0)
             {
-     console.log("step 2");
                 // Then filter 20 top "hot" posts from /r/jokes
                 reddit.r('jokes').hot().limit(20,function(err, data, res){
                     // Get all recent hot posts
                     // And filter out nsfw
-                    console.log("filter");
                     var posts = data.data.children.filter( function(post) { 
-                     console.log(post.data.text);
-                     console.log(post.data.whitelist_status);
                       return post.data.whitelist_status != "promo_adult_nsfw";
                     });
-                    console.log("gotya");
                     if (posts.length>1)
                     {
                         // Pick a random one
@@ -240,13 +234,22 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
         // Then filter all "hot" posts from /r/jokes
         reddit.r('jokes').hot().exe(function(err, data, resInner){
             // Get all recent hot posts
-            var posts = data.data.children;
-            // Pick a random one
-            var post = posts[Math.round(Math.random()*(posts.length-1))].data;
-            // Build a message
-            var jokeText = "*"+post.title+"* "+post.selftext;
+            // Filter out nsfw
+            var posts = data.data.children.filter( function(post) { 
+              return post.data.whitelist_status != "promo_adult_nsfw";
+            });
 
-            sayToPublic(jokeText);
+         // Pick a random one
+            var post = posts[Math.round(Math.random()*(posts.length-1))].data;
+            if (posts.length>1)
+            {
+                        // Build a message
+               var jokeText = "*"+post.title+"* "+post.selftext;
+               sayToPublic(jokeText);
+            } else {
+            {
+                sayToPublic("Out of jokes at the moment :( Try me again!");
+            }
         });
     } else
     // /gimme money
