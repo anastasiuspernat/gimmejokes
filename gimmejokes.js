@@ -1,7 +1,7 @@
 /*********
  *
  *
- *  Gimme Jokes, a simple Slack joking bot v1.27
+ *  Gimme Jokes, a simple Slack joking bot v1.29
  *  (actually a Reddit shameless plagiary).
  *
  *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
@@ -109,6 +109,7 @@ if (localBotSettings.token)
     // Channel messages parser
     gimme.on('message', function(message,test) {
         var nametag = "<@"+gimme.user.id+">";
+     console.log("step 1");
         // Filter only those messages directly addressed to our bot
         // Also filter out messages produced by our bot
         if (message.type == "message" && message.user != gimme.user.id && message.text && message.text.indexOf(nametag) != -1)
@@ -117,6 +118,7 @@ if (localBotSettings.token)
             // If a message has a "joke" text in it
             if (asktext.toLowerCase().indexOf("joke")>=0)
             {
+     console.log("step 2");
                 // Then filter 20 top "hot" posts from /r/jokes
                 reddit.r('jokes').hot().limit(20,function(err, data, res){
                     // Get all recent hot posts
