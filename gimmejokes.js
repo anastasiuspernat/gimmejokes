@@ -5,10 +5,11 @@
  *  (actually a Reddit shameless plagiary).
  *
  *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
+ *  Filters out NSFW jokes! (per Slack requirements)
  *  See full description and instructions at
  *  https://github.com/anastasiuspernat/gimmejokes
  *
- *  (C) 2017 Anastasiy, anastasiy.com
+ *  (C) 2017-2018 Anastasiy, anastasiy.com
  *  Distributed under MIT license
  *
  *
