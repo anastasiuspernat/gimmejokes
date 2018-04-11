@@ -30,6 +30,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 var fs = require('fs');
 var storage = require('node-persist');
+var pjson = require('./package.json');
 
 // Configurable variables
 // By default the bot listens to "@gimme joke" messages
@@ -48,7 +49,7 @@ var localBotSettings = {
     name: "gimme",
     //Your bot command goes here - only used when bot is deployed, to avoid additional oAuth reqeusts
     command: "/gimme",
-    version: "1.27"
+    version: pjson.version
 };
 
 // Global bot settings
