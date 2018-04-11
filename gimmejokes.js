@@ -143,7 +143,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
 {
-    res.send("Gimme Jokes '+localBotSettings.version+' PRIVACY POLICY:<br>\
+    res.send("Gimme Jokes "+localBotSettings.version+" PRIVACY POLICY:<br>\
     <br>\
     Gimme Jokes doesn't collect or store any personal data, or data or commands you sent, it doesn't store cookies. It does collect the number of times it was installed and invoked - anonymously. Gimme Jokes uses secure HTTPS protocol to recieve the commands you sent to it and only to retrieve Reddit posts. You can obtain and examine full source of the software at:<br>\
     https://github.com/anastasiuspernat/gimmejokes\
