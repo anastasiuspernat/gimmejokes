@@ -246,7 +246,7 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
                         // Build a message
                var jokeText = "*"+post.title+"* "+post.selftext;
                sayToPublic(jokeText);
-            } else {
+            } else 
             {
                 sayToPublic("Out of jokes at the moment :( Try me again!");
             }
