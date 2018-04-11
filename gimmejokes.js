@@ -123,7 +123,7 @@ if (localBotSettings.token)
                     // And filter out nsfw
                     console.log("filter");
                     var posts = data.data.children.filter( function(post) { 
-                      return post.data.whitelist_status != "promo_adult_nsfw" );
+                      return post.data.whitelist_status != "promo_adult_nsfw";
                     });
                     console.log("gotya");
                     if (posts.length>1)
