@@ -35,6 +35,6 @@ Local usage:
 * Type in **@gimme jokes** in your slack channel
 * Enjoy! Ping me back with suggestions!
 
-&copy; 2017 Anastasiy, http://anastasiy.com
+&copy; 2017-2018 Anastasiy, http://anastasiy.com
 
 Distributed under MIT license.
