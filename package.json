@@ -1,7 +1,7 @@
 {
   "name": "gimme",
   "description": "Gimme Jokes, a slack joking bot (actually a reddit shameless plagiary)",
-  "version": "1.30.0",
+  "version": "1.31.0",
   "main": "gimmejoke.js",
   "scripts": {
     "start": "node gimmejokes.js",
