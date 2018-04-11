@@ -1,7 +1,7 @@
 /*********
  *
  *
- *  Gimme Jokes, a simple Slack joking bot v0.25
+ *  Gimme Jokes, a simple Slack joking bot v1.27
  *  (actually a Reddit shameless plagiary).
  *
  *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
@@ -48,7 +48,7 @@ var localBotSettings = {
     name: "gimme",
     //Your bot command goes here - only used when bot is deployed, to avoid additional oAuth reqeusts
     command: "/gimme",
-    version: "0.26"
+    version: "1.27"
 };
 
 // Global bot settings
@@ -118,16 +118,27 @@ if (localBotSettings.token)
                 // Then filter 20 top "hot" posts from /r/jokes
                 reddit.r('jokes').hot().limit(20,function(err, data, res){
                     // Get all recent hot posts
-                    var posts = data.data.children;
-                    // Pick a random one
-                    var post = posts[Math.round(Math.random()*(posts.length-1))].data;
-                    // Build a message
-                    var jokeText = "*"+post.title+"* "+post.selftext;
-                    // Post a joke!
-                    gimme.postMessageToChannel(
-                        settings.channel,
-                        jokeText,
-                        {as_user: true});
+                    // And filter out nsfw
+                    var posts = data.data.children.filter( post => post.whitelist_status != "promo_adult_nsfw" );
+                    if (posts.length>1)
+                    {
+                        // Pick a random one
+                        var post = posts[Math.round(Math.random()*(posts.length-1))].data;
+                        // Build a message
+                        var jokeText = "*"+post.title+"* "+post.selftext;
+                        // Post a joke!
+                        gimme.postMessageToChannel(
+                            settings.channel,
+                            jokeText,
+                            {as_user: true});
+                    } else
+                    {
+                        // Very rare situation - all chosen jokes are filtered out
+                        gimme.postMessageToChannel(
+                            settings.channel,
+                            "Out of jokes at the moment :( Try me again!",
+                            {as_user: true});
+                    }
                 });
             }
         }
@@ -143,7 +154,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res)
 {
-    res.send("Gimme Jokes "+localBotSettings.version+" PRIVACY POLICY:<br>\
+    res.send("Gimme Jokes PRIVACY POLICY:<br>\
     <br>\
     Gimme Jokes doesn't collect or store any personal data, or data or commands you sent, it doesn't store cookies. It does collect the number of times it was installed and invoked - anonymously. Gimme Jokes uses secure HTTPS protocol to recieve the commands you sent to it and only to retrieve Reddit posts. You can obtain and examine full source of the software at:<br>\
     https://github.com/anastasiuspernat/gimmejokes\
