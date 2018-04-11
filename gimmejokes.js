@@ -120,7 +120,11 @@ if (localBotSettings.token)
                 reddit.r('jokes').hot().limit(20,function(err, data, res){
                     // Get all recent hot posts
                     // And filter out nsfw
-                    var posts = data.data.children.filter( post => post.whitelist_status != "promo_adult_nsfw" );
+                    console.log("filter");
+                    var posts = data.data.children.filter( function(post) { 
+                      return post.data.whitelist_status != "promo_adult_nsfw" );
+                    });
+                    console.log("gotya");
                     if (posts.length>1)
                     {
                         // Pick a random one
