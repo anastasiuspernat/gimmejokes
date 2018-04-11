@@ -236,7 +236,7 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
             // Get all recent hot posts
             // Filter out nsfw
             var posts = data.data.children.filter( function(post) { 
-              return post.data.whitelist_status != "promo_adult_nsfw" && !post.data.over_18;
+              return post.data.whitelist_status != "promo_adult_nsfw" && !post.data.over_18 && post.data.distinguished != "moderator";
             });
 
          // Pick a random one
