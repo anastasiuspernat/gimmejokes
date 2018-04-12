@@ -8,7 +8,7 @@ Filters out NSFW and 18+ jokes!
 
 ![](https://github.com/anastasiuspernat/gimmejokes/raw/master/gimmejokes_example3.jpg?raw=true)
 
-Posts a random joke from reddit's /r/jokes (sorted by "hot"). Works from anywhere, requires Internet connection.
+Posts a random joke from reddit's /r/cleanjokes (sorted by "hot"). Works from anywhere, requires Internet connection.
 
 **Usage**
 
