@@ -4,7 +4,7 @@
 
 A Slack joking bot (actually a reddit shameless plagiary)
 
-*Be careful!* Possibly can tell NSFW jokes!
+Filters out NSFW and 18+ jokes!
 
 ![](https://github.com/anastasiuspernat/gimmejokes/raw/master/gimmejokes_example3.jpg?raw=true)
 
