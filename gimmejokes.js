@@ -1,10 +1,10 @@
 /*********
  *
  *
- *  Gimme Jokes, a simple Slack joking bot v1.32
+ *  Gimme Jokes, a simple Slack joking bot v1.34
  *  (actually a Reddit shameless plagiary).
  *
- *  Posts a random joke from Reddit's /r/jokes (sorted by "hot")
+ *  Posts a random joke from Reddit's /r/cleanjokes (sorted by "hot")
  *  Filters out NSFW & 18+ jokes! (per Slack requirements)
  *  See full description and instructions at
  *  https://github.com/anastasiuspernat/gimmejokes
@@ -231,8 +231,8 @@ app.post('/commands'+localBotSettings.command, function(req, res) {
         settings.stat_served++;
         storage.setItemSync(settings.stat_key_served,settings.stat_served);
 
-        // Then filter all "hot" posts from /r/jokes
-        reddit.r('jokes').hot().exe(function(err, data, resInner){
+        // Then filter all "hot" posts from /r/cleanjokes
+        reddit.r('cleanjokes').hot().exe(function(err, data, resInner){
             // Get all recent hot posts
             // Filter out nsfw
             var posts = data.data.children.filter( function(post) { 
